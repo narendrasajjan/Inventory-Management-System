@@ -1,0 +1,53 @@
+import java.util.ArrayList;
+
+public class Inventory {
+    private ArrayList<Product> productList;
+
+    public Inventory() {
+        productList = new ArrayList<>();
+    }
+
+    // Add product to the inventory
+    public void addProduct(Product product) {
+        productList.add(product);
+    }
+
+    // Remove product from the inventory
+    public void removeProduct(String productId) {
+        productList.removeIf(product -> product.getProductId().equals(productId));
+    }
+
+    // Update product information
+    public void updateProduct(String productId, int newQuantity, double newPrice) {
+        for (Product product : productList) {
+            if (product.getProductId().equals(productId)) {
+                product.setQuantity(newQuantity);
+                product.setPrice(newPrice);
+                break;
+            }
+        }
+    }
+
+    // Search for a product
+    public Product searchProduct(String productId) {
+        for (Product product : productList) {
+            if (product.getProductId().equals(productId)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    // Generate report of all products
+    public void generateReport() {
+        if (productList.isEmpty()) {
+            System.out.println("No products in the inventory.");
+            return;
+        }
+
+        for (Product product : productList) {
+            product.displayProductDetails();
+            System.out.println("------------------------");
+        }
+    }
+}
