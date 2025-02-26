@@ -1,0 +1,86 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Inventory inventory = new Inventory();
+
+        while (true) {
+            // Display menu
+            System.out.println("Inventory Management System");
+            System.out.println("1. Add Product");
+            System.out.println("2. Update Product");
+            System.out.println("3. Remove Product");
+            System.out.println("4. Search Product");
+            System.out.println("5. View All Products");
+            System.out.println("6. Exit");
+            System.out.print("Enter choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    // Add product
+                    System.out.print("Enter Product ID: ");
+                    String productId = scanner.nextLine();
+                    System.out.print("Enter Product Name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter Quantity: ");
+                    int quantity = scanner.nextInt();
+                    System.out.print("Enter Price: ");
+                    double price = scanner.nextDouble();
+                    scanner.nextLine();  // Consume newline
+                    System.out.print("Enter Product Description: ");
+                    String description = scanner.nextLine();
+
+                    Product newProduct = new Product(productId, name, quantity, price, description);
+                    inventory.addProduct(newProduct);
+                    System.out.println("Product added successfully!");
+                    break;
+
+                case 2:
+                    // Update product
+                    System.out.print("Enter Product ID to update: ");
+                    productId = scanner.nextLine();
+                    System.out.print("Enter new Quantity: ");
+                    quantity = scanner.nextInt();
+                    System.out.print("Enter new Price: ");
+                    price = scanner.nextDouble();
+                    inventory.updateProduct(productId, quantity, price);
+                    System.out.println("Product updated successfully!");
+                    break;
+
+                case 3:
+                    // Remove product
+                    System.out.print("Enter Product ID to remove: ");
+                    productId = scanner.nextLine();
+                    inventory.removeProduct(productId);
+                    System.out.println("Product removed successfully!");
+                    break;
+
+                case 4:
+                    // Search product
+                    System.out.print("Enter Product ID to search: ");
+                    productId = scanner.nextLine();
+                    Product product = inventory.searchProduct(productId);
+                    if (product != null) {
+                        product.displayProductDetails();
+                    } else {
+                        System.out.println("Product not found!");
+                    }
+                    break;
+
+                case 5:
+                    // View all products
+                    inventory.generateReport();
+                    break;
+
+                case 6:
+                    // Exit
+                    System.out.println("Exiting program...");
+                    scanner.close();
+                    return;
+            }
+        }
+    }
+}
